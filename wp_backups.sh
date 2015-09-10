@@ -69,7 +69,7 @@ else
 	    # Delete old backups created mtime days ago (91 osea 3 meses aprox by default)
 	    find $wp_backup_dir -maxdepth 1 -mtime +91 -exec rm -rf "{}" ";" > /dev/null
 	    # Send mail to confirm that everything has gone as expected
-	    echo 'Backup for your site has been completed' | mail -s "Wordpress backup successfully completed" $wp_email
+	    echo 'Backup for your site ($tipo) has been completed' | mail -s "Wordpress backup successfully completed" $wp_email
             rm -f $chekrun
             echo "Existents backups:"
             ls -al --color=auto $wp_backup_dir
