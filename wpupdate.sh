@@ -1,6 +1,6 @@
 #!/bin/bash
 #######################################################################
-# Necesitas tener instalado wp-cli
+# Necesitas tener instalado wp-cli http://wp-cli.org/
 #######################################################################
 # Copyright (c) 2015 Jorge Hernandez - Melendez
 # This program is free software: you can redistribute it and/or modify
