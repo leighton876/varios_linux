@@ -4,7 +4,8 @@
 # Modified by zebus 
 #####################################################################################
 # For security i recommend:
-# chmod 700 wp_backup.sh
+# chown root:root wp_backups.sh
+# chmod 700 wp_backups.sh
 #####################################################################################
 '''
 Copyright (c) 2015 Jorge Hernandez - Melendez
