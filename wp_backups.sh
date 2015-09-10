@@ -50,6 +50,8 @@ else
 	wp_email="your_mail@mail.any"
 	# Wordpress installation location (without final slash!) e.g.:/var/www/sites/mysite.com
 	wp_documentroot="your_root_path_site"
+	# Site name:
+        sitename=$(echo "/hola/mundo" | sed "s/\//\n/g" | tail -n 1)
 	# Wordpress backup destination directory e.g.: /usr/local/backups/wordpress (without final slash!)
 	wp_backup_dir="your_path_folderbackups"
         
@@ -69,7 +71,7 @@ else
 	    # Delete old backups created mtime days ago (91 osea 3 meses aprox by default)
 	    find $wp_backup_dir -maxdepth 1 -mtime +91 -exec rm -rf "{}" ";" > /dev/null
 	    # Send mail to confirm that everything has gone as expected
-	    echo "Backup for your ( $tipo ) site has been completed" | mail -s "Wordpress backup successfully completed" $wp_email
+	    echo "Backup for your ( $sitename $tipo ) site has been completed" | mail -s "Wordpress backup successfully completed" $wp_email
             rm -f $chekrun
             echo "Existents backups:"
             ls -al --color=auto $wp_backup_dir
