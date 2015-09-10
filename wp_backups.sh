@@ -34,7 +34,7 @@ if [ -f $chekrun ]; then
     exit -1
 else
         clear
-	touch /tmp/scriptbackupisrun.txt
+	touch $chekrun
 	# Date variable for everyday. It will have the format 20150507 -> year 2015, month 05, day 07
 	v_date=$(date +%F | sed "s/-/_/g")
         v_hour=$(date +%T | sed "s/:/_/g")
@@ -70,7 +70,7 @@ else
 	    find $wp_backup_dir -maxdepth 1 -mtime +91 -exec rm -rf "{}" ";" > /dev/null
 	    # Send mail to confirm that everything has gone as expected
 	    #echo 'Backup for your site has been completed' | mail -s "Wordpress backup successfully completed" $wp_email
-            rm -f /tmp/scriptbackupisrun.txt
+            rm -f $chekrun
             echo "Existents backups:"
             ls -al --color=auto $wp_backup_dir
 	}
@@ -98,7 +98,7 @@ else
 	    tar_delete_and_mail
 	    
 	else
-            rm -f /tmp/scriptbackupisrun.txt 2>/dev/null
+            rm -f $chekrun 2>/dev/null
 	    clear
 	    echo "This script needs arguments."
 	    echo "Arguments available:"
