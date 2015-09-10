@@ -25,11 +25,10 @@ for site in $(ls $pathwww); do
     fi
     # entramos y lo hacemos si no esta blacklisted:
     if [ -f "$wpfile" ] && [ "$blisted" != "True" ]; then
-        echo "Actualizando: $pathnow"
         chkandup=$(wp plugin update --all --path="$pathnow" | tee "$pathlog" | wc -l)
         readlog=$(cat $pathlog)
         if [ "$chkandup" != "1" ]; then
-             echo ""
+            echo "$pathnow Actualizado!"
             echo -e "Wordpres: $pathnow UPDATED! \n Report:\n\n $readlog." | mail -s "Wordpress $pathwp Actualizado" $adminmail
         fi
     fi
