@@ -19,7 +19,6 @@ clear
 wpfile="wp-config.php"
 pathold=$(pwd)
 pathwww="/var/www"
-rm $pathlog 2>/dev/null
 v_date=$(date +%F | sed "s/-/_/g")
 v_hour=$(date +%T | sed "s/:/_/g")
 separator="_"
@@ -48,7 +47,7 @@ for site in $(ls $pathwww); do
         readlog=$(cat $pathlog)
         if [ "$chkandup" != "1" ]; then
             echo "$pathnow Actualizado!"
-            echo -e "Wordpres: $pathnow UPDATED! \n Report:\n\n $readlog." | mail -s "Wordpress $pathwp Actualizado" $adminmail
+            echo -e "Wordpres: $pathnow UPDATED! \n Report:\n\n $readlog." | mail -s "Wordpress $pathnow Actualizado" $adminmail
         else # el log solo se guarda si se hizo actualizacion:
             rm $pathlog 2>/dev/null
         fi
