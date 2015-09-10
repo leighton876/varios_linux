@@ -38,7 +38,7 @@ else
 	v_date=$(date +%F | sed "s/-/_/g")
         v_hour=$(date +%T | sed "s/:/_/g")
         separator="_"
-        tipo=$(echo $1 | sed "s/-//g")
+        tipo=$(echo "$1" | sed "s/-//g")
 	# Wordpress database user
 	wpdb_user="your_db_user_name"
 	# Wordpress database password
