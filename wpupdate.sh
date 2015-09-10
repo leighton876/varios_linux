@@ -33,6 +33,7 @@ blisted="False"
 # borrando logs anteriores
 #rm /tmp/wp_update_all*.log 2>/dev/null
 
+echo "Buscando actualizaciones..."
 for site in $(ls $pathwww); do
     pathnow="$pathwww/$site"
     cd $pathnow
