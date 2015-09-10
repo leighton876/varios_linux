@@ -51,7 +51,7 @@ else
 	# Wordpress installation location (without final slash!) e.g.:/var/www/sites/mysite.com
 	wp_documentroot="your_root_path_site"
 	# Site name:
-        sitename=$(echo "/hola/mundo" | sed "s/\//\n/g" | tail -n 1)
+        sitename=$(echo "$wp_documentroot" | sed "s/\//\n/g" | tail -n 1)
 	# Wordpress backup destination directory e.g.: /usr/local/backups/wordpress (without final slash!)
 	wp_backup_dir="your_path_folderbackups"
         
