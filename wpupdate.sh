@@ -22,7 +22,9 @@ pathwww="/var/www"
 v_date=$(date +%F | sed "s/-/_/g")
 v_hour=$(date +%T | sed "s/:/_/g")
 separator="_"
-adminmail="tumail@mail.com"
+adminmail1="tumail@mail.com"
+adminmail2="tumail@mail.com"
+frommail="admin@server.com"
 blist=() # <- lista negra vacia de momento para llenarla es asi:
 #blist=( epf elpuntofrio )
 #echo ${blist[@]}
@@ -46,7 +48,8 @@ for site in $(ls $pathwww); do
         readlog=$(cat $pathlog)
         if [ "$chkandup" != "1" ]; then
             echo "$pathnow Actualizado!"
-            echo -e "Wordpres: $pathnow UPDATED! \n Report:\n\n $readlog." | mail -s "Wordpress $pathnow Actualizado" $adminmail
+            # Usage: mail -eiIUdEFntBDNHRV~ -T FILE -u USER -h hops -r address -s SUBJECT -a FILE -q FILE -f FILE -A ACCOUNT -b USERS -c USERS -S OPTION users
+            echo -e "Wordpres: $pathnow UPDATED! \n Report:\n\n $readlog." | mail -s "Wordpress $pathnow Actualizado" -c "$adminmail1 $adminmail2" send_email_to -- -f $frommail
         else # el log solo se guarda si se hizo actualizacion:
             rm $pathlog 2>/dev/null
         fi
