@@ -49,7 +49,7 @@ for site in $(ls $pathwww); do
         if [ "$chkandup" != "1" ]; then
             echo "$pathnow Actualizado!"
             # Usage: mail -eiIUdEFntBDNHRV~ -T FILE -u USER -h hops -r address -s SUBJECT -a FILE -q FILE -f FILE -A ACCOUNT -b USERS -c USERS -S OPTION users
-            echo -e "Wordpres: $pathnow UPDATED! \n Report:\n\n $readlog." | mail -s "Wordpress $pathnow Actualizado" -c "$adminmail1 $adminmail2" send_email_to -- -f $frommail
+            echo -e "WP-CLI: $pathnow executed! \n Report:\n\n $readlog." | mail -r $frommail -s "Wordpress $pathnow Actualizado" -c "$adminmail1 $adminmail2"
         else # el log solo se guarda si se hizo actualizacion:
             rm $pathlog 2>/dev/null
         fi
