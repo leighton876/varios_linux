@@ -16,6 +16,7 @@
 #######################################################################
 
 clear
+normaluser="YourUser"
 wpfile="wp-config.php"
 pathold=$(pwd)
 pathwww="/var/www"
@@ -44,7 +45,7 @@ for site in $(ls $pathwww); do
     # entramos y lo hacemos si no esta blacklisted:
     if [ -f "$wpfile" ] && [ "$blisted" != "True" ]; then
         pathlog="/tmp/wp_update_all_$v_date$separator$v_hour$separator$site.log"
-        chkandup=$(sudo -u tuUsuario -i wp plugin update --all --path="$pathnow" | tee "$pathlog" | wc -l)
+        chkandup=$(sudo -u "$normaluser" -i wp plugin update --all --path="$pathnow" | tee "$pathlog" | wc -l)
         readlog=$(cat $pathlog)
         if [ "$chkandup" != "1" ]; then
             echo "$pathnow Actualizado!"
@@ -56,6 +57,9 @@ for site in $(ls $pathwww); do
     fi
     blisted="False"
 done
+
+# Delete residuals:
+rm /home/$normaluser/.wp-cli/cache/plugin/*.zip 2>/dev/null
 
 echo "Fin del script."
 cd $pathold
