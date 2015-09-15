@@ -27,7 +27,7 @@ adminmail1="tumail@mail.com"
 adminmail2="tumail@mail.com"
 frommail="admin@server.com"
 blist=() # <- lista negra vacia de momento para llenarla es asi:
-#blist=( epf elpuntofrio )
+#blist=( nombre1 nombre2 )
 #echo ${blist[@]}
 blisted="False"
 # borrando logs anteriores
