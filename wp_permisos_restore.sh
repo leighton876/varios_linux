@@ -35,7 +35,7 @@ for site in $(ls $pathwww); do
     cd $pathnow
     # si esta blaclisted entonces activo blisted:
     if [[ "$(echo ${blist[@]} | grep -ic $site)" > "0" ]];then
-        echo "$site is blacklisted!, will not be updated"
+        echo "$site is blacklisted!, nothing will be done."
         blisted="True"
     fi
     # entramos y lo hacemos si no esta blacklisted:
