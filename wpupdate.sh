@@ -49,7 +49,7 @@ for site in $(ls $pathwww); do
         echo "wp-cli cheking/runing in: $pathlog"
         #pathlogcore="/tmp/wp_update_$date$sep$hour$sep$site_core.log"
         chown $normaluser:$serveruser -R $pathnow
-        wpcli=$(sudo -u "$normaluser" -i wp plugin update --all --path="$pathnow" --allow-root | sudo tee "$pathlog" | wc -l)
+        wpcli=$(sudo -u "$normaluser" -i wp plugin update --all --path="$pathnow" | sudo tee "$pathlog" | wc -l)
         chown $serveruser:$serveruser -R $pathnow
         chown root:root $pathnow
         if [ "$wpcli" != "1" ]; then
