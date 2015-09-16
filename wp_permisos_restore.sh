@@ -32,7 +32,7 @@ blisted="False"
 echo "Procediendo a aplicar los permisos y propietarios correspondientes a todos los wordpress..."
 for site in $(ls $pathwww); do
     pathnow="$pathwww/$site"
-    echo "Entrando en $pathnow"
+    echo -e "\n Entrando en $pathnow"
     cd $pathnow
     # si esta blaclisted entonces activo blisted:
     if [[ "$(echo ${blist[@]} | grep -ic $site)" > "0" ]];then
