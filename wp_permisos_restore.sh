@@ -56,8 +56,13 @@ for site in $(ls $pathwww); do
         find . -type d -exec chmod 755 {} \; # Change directory permissions rwxr-xr-x
         echo "Haciendo find . -type f -exec chmod 644 {} \;  # para los archivos: rw-r--r--"
         find . -type f -exec chmod 644 {} \;  # Change file permissions rw-r--r--
-        echo "Haciendo chmod 775 $pathnow/wp-content para tener el wp-content con 775 para los updates de core."
+        echo "Haciendo chmod 775 $pathnow/wp-content para tener el wp-content con 775 para los core updates."
         chmod 775 $pathnow/wp-content
+        # Comprobando si tienen o no el direct para los core update correctos:
+        if [ "$(grep -ic 'direct' $pathnow)" < 2 ]; then
+            echo "No tiene define('FS_METHOD','direct'); en el $wpfile, se lo agrego."
+            echo "define('FS_METHOD','direct');" >> $pathnow/$wpfile
+        fi
     else
         echo "$pathnow no es un wordpress"
     fi
