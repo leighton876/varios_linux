@@ -69,5 +69,6 @@ for site in $(ls $pathwww); do
     blisted="False"
 done
 
+echo ""
 echo "Fin del script."
 cd $pathold
