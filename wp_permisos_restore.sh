@@ -19,7 +19,6 @@
 
 clear
 serveruser="www-data"
-normaluser="jorge"
 wpfile="wp-config.php"
 pathold=$(pwd)
 pathwww="/var/www"
