@@ -58,6 +58,8 @@ for site in $(ls $pathwww); do
         find . -type f -exec chmod 644 {} \;  # Change file permissions rw-r--r--
         echo "Haciendo chmod 775 $pathnow/wp-content para tener el wp-content con 775 para los updates de core."
         chmod 775 $pathnow/wp-content
+    else
+        echo "$pathnow no es un wordpress"
     fi
     blisted="False"
 done
