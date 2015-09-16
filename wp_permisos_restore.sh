@@ -50,6 +50,7 @@ for site in $(ls $pathwww); do
         # Entonces en el etc password:
         # usuarioftpwgm:x:algo:algo:Usuario de ftp wgm:/var/www/wgm.es/media/digital_magazine/:/bin/ftp
         # donde /bin/ftp es una falsa shell que es un directorio de root:root con rwxr-xr-x
+        # tiene que existir el grupo ftp tambien.
         if [ $site == "wgm.es" ]; then
             echo "Haciendo chown admin_worldgam:ftp -R $pathnow/media/digital_magazine para el ftp de wgm"
             chown usuarioftpwgm:ftp -R $pathnow/media/digital_magazines
