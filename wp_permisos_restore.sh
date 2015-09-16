@@ -1,8 +1,8 @@
 #!/bin/bash
 #######################################################################
 # Con crontab -e podemos agregar el script para que se ejecute 
-# todas las noches a las 10pm, agregando al final del todo:
-# 00 22  * * * /usr/local/bin/wordpress_update 
+# todas las noches a las 21:50, agregando al final del todo:
+# 50 21  * * * /usr/local/bin/wordpress_update 
 #######################################################################
 # Copyright (c) 2015 Jorge Hernandez - Melendez
 # This program is free software: you can redistribute it and/or modify
