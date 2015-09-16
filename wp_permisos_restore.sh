@@ -64,7 +64,7 @@ for site in $(ls $pathwww); do
             echo "define('FS_METHOD','direct');" >> $pathnow/$wpfile
         fi
     else
-        echo "$pathnow no es un wordpress"
+        echo "$pathnow no es un wordpress valido."
     fi
     blisted="False"
 done
