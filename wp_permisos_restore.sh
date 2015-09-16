@@ -45,10 +45,14 @@ for site in $(ls $pathwww); do
         chown $serveruser:$serveruser -R $pathnow
         echo "Haciendo chown root:root $pathnow"
         chown root:root $pathnow
-        # excepcion para enjaular el vsftp de wgm:
+        # Excepcion para enjaular el vsftp de wgm:
+        # el home del usuarioftpwgm tiene que ser /var/www/wgm/media/digital_magazin
+        # Entonces en el etc password:
+        # usuarioftpwgm:x:algo:algo:Usuario de ftp wgm:/var/www/wgm/media/digital_magazine/:/bin/ftp
+        # donde /bin/ftp es una falsa shell que es un directorio de root:root con rwxr-xr-x
         if [ $site == "wgm" ]; then
             echo "Haciendo chown admin_worldgam:ftp -R $pathnow/media/digital_magazine para el ftp de wgm"
-            chown usuarioftpwgm:ftp -R $pathnow/media/digital_magazine
+            chown usuarioftpwgm:ftp -R $pathnow/media/digital_magazines
         fi
         # PERMISOS:
         echo "Haciendo find . -type d -exec chmod 755 {} \; # para los directorios: rwxr-xr-x"
