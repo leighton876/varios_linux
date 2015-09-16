@@ -48,7 +48,7 @@ for site in $(ls $pathwww); do
         # excepcion para enjaular el vsftp de wgm:
         if [ $site == "wgm" ]; then
             echo "Haciendo chown admin_worldgam:ftp -R $pathnow/media/digital_magazine para el ftp de wgm"
-            chown admin_worldgam:ftp -R $pathnow/media/digital_magazine
+            chown usuarioftpwgm:ftp -R $pathnow/media/digital_magazine
         fi
         # PERMISOS:
         echo "Haciendo find . -type d -exec chmod 755 {} \; # para los directorios: rwxr-xr-x"
