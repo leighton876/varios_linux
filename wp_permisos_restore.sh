@@ -60,6 +60,7 @@ for site in $(ls $pathwww); do
         # Comprobando si tienen o no el direct para los core update correctos:
         if [ "$(grep -ic 'direct' $pathnow/$wpfile)" < "2" ]; then
             echo "No tiene define('FS_METHOD','direct'); en el $wpfile, se lo agrego."
+            echo " " >> $pathnow/$wpfile
             echo "define('FS_METHOD','direct');" >> $pathnow/$wpfile
         fi
     else
