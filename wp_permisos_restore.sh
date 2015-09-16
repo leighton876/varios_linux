@@ -52,7 +52,7 @@ for site in $(ls $pathwww); do
         # donde /bin/ftp es una falsa shell que es un directorio de root:root con rwxr-xr-x
         # tiene que existir el grupo ftp tambien.
         if [ $site == "wgm.es" ]; then
-            echo "Haciendo chown admin_worldgam:ftp -R $pathnow/media/digital_magazine para el ftp de wgm"
+            echo "Haciendo chown usuarioftpwgm:ftp -R $pathnow/media/digital_magazine para el ftp de wgm"
             chown usuarioftpwgm:ftp -R $pathnow/media/digital_magazines
         fi
         # PERMISOS:
