@@ -20,49 +20,57 @@
 
 clear
 normaluser="YourUser"
+serveruser="www-data"
 wpfile="wp-config.php"
 pathold=$(pwd)
 pathwww="/var/www"
-v_date=$(date +%F | sed "s/-/_/g")
-v_hour=$(date +%T | sed "s/:/_/g")
-separator="_"
-adminmail1="tumail@mail.com"
-adminmail2="tumail@mail.com"
-frommail="admin@server.com"
-blist=() # <- lista negra vacia de momento para llenarla es asi:
-#blist=( nombre1 nombre2 )
+date=$(date +%F | sed "s/-/_/g")
+hour=$(date +%T | sed "s/:/_/g")
+sep="_"
+frommail="wp-cli@yourfakemail.com"
+adminmail1="server_admin1@real_account.com"
+adminmail2="server_admin2@real_account.com"
+blist=() # <- lista negra vacia de momento para llenarla es asi: blist=( sitio1 sitio2 )
 #echo ${blist[@]}
 blisted="False"
-# borrando logs anteriores
-#rm /tmp/wp_update_all*.log 2>/dev/null
 
-echo "Buscando actualizaciones..."
+echo "Starting..."
 for site in $(ls $pathwww); do
     pathnow="$pathwww/$site"
     cd $pathnow
     # si esta blaclisted entonces activo blisted:
     if [[ "$(echo ${blist[@]} | grep -ic $site)" > "0" ]];then
-        echo "$site is blacklisted!, will not be updated"
+        echo "$site is blacklisted!, nothing will be done."
         blisted="True"
     fi
     # entramos y lo hacemos si no esta blacklisted:
     if [ -f "$wpfile" ] && [ "$blisted" != "True" ]; then
-        pathlog="/tmp/wp_update_all_$v_date$separator$v_hour$separator$site.log"
-        chkandup=$(sudo -u "$normaluser" -i wp plugin update --all --path="$pathnow" | tee "$pathlog" | wc -l)
-        readlog=$(cat $pathlog)
-        if [ "$chkandup" != "1" ]; then
-            echo "$pathnow Actualizado!"
-            # Usage: mail -eiIUdEFntBDNHRV~ -T FILE -u USER -h hops -r address -s SUBJECT -a FILE -q FILE -f FILE -A ACCOUNT -b USERS -c USERS -S OPTION users
-            echo -e "WP-CLI: $pathnow executed! \n Report:\n\n $readlog." | mail -r $frommail -s "Wordpress $pathnow Actualizado" -c "$adminmail1 $adminmail2"
+        pathlog="/tmp/wp_update_$date$sep$hour$sep$site.log"
+        echo "wp-cli cheking/runing in: $pathlog"
+        #pathlogcore="/tmp/wp_update_$date$sep$hour$sep$site_core.log"
+        chown $normaluser:$serveruser -R $pathnow
+        wpcli=$(sudo -u "$normaluser" -i wp plugin update --all --path="$pathnow" --allow-root | sudo tee "$pathlog" | wc -l)
+        chown $serveruser:$serveruser -R $pathnow
+        chown root:root $pathnow
+        if [ "$wpcli" != "1" ]; then
+            echo "target: $pathnow"
+            touch /tmp/msg
+            readlog=$(cat $pathlog)
+            echo -e "WP-CLI: $pathnow executed! \nReport:\n\n$readlog" | tee /tmp/mmsg
+            cat /tmp/mmsg | mailx -r "$frommail" -s "WP-CLI plugin update for: $pathnow " -c "$adminmail1" $adminmail2
+            rm /tmp/mmsg 2>/dev/null
         else # el log solo se guarda si se hizo actualizacion:
             rm $pathlog 2>/dev/null
         fi
+        #chkandupcore=$(sudo -u "$normaluser" -i wp core update --path="$pathnow" | tee "$pathlogcore" | wc -l)
     fi
     blisted="False"
 done
 
 # Delete residuals:
 rm /home/$normaluser/.wp-cli/cache/plugin/*.zip 2>/dev/null
+# borrando logs anteriores, ya que hay una copia en el mail...
+rm /tmp/wp_update_*.log 2>/dev/null
 
-echo "Fin del script."
+echo "End Of Script."
 cd $pathold
