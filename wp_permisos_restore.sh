@@ -18,6 +18,7 @@
 ##########################################################################
 
 clear
+usuarioftpwgm="usuario"
 serveruser="www-data"
 wpfile="wp-config.php"
 pathold=$(pwd)
