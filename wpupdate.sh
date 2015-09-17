@@ -54,7 +54,6 @@ for site in $(ls $pathwww); do
         chown root:root $pathnow
         if [ "$wpcli" != "1" ]; then
             echo "target: $pathnow"
-            touch /tmp/msg
             readlog=$(cat $pathlog)
             echo -e "WP-CLI: $pathnow executed! \nReport:\n\n$readlog" | tee /tmp/mmsg
             cat /tmp/mmsg | mailx -r "$frommail" -s "WP-CLI plugin update for: $pathnow " -c "$adminmail1" $adminmail2
