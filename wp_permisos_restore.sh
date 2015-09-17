@@ -18,7 +18,7 @@
 ##########################################################################
 
 clear
-usuarioftpwgm="usuario"
+usuarioftpxweb="usuario"
 serveruser="www-data"
 wpfile="wp-config.php"
 pathold=$(pwd)
@@ -46,15 +46,15 @@ for site in $(ls $pathwww); do
         chown $serveruser:$serveruser -R $pathnow
         echo "Haciendo chown root:root $pathnow"
         chown root:root $pathnow
-        # Excepcion para enjaular el vsftp de wgm:
-        # el home del usuarioftpwgm tiene que ser /var/www/wgm.es/media/digital_magazin
+        # Excepcion para enjaular el vsftp de xweb:
+        # el home del usuarioftpxweb tiene que ser /var/www/xweb.es/media/digital_magazin
         # Entonces en el etc password:
-        # usuarioftpwgm:x:algo:algo:Usuario de ftp wgm:/var/www/wgm.es/media/digital_magazine/:/bin/ftp
+        # usuarioftpxweb:x:algo:algo:Usuario de ftp xweb:/var/www/xweb.es/media/digital_magazine/:/bin/ftp
         # donde /bin/ftp es una falsa shell que es un directorio de root:root con rwxr-xr-x
         # tiene que existir el grupo ftp tambien.
-        if [ $site == "wgm.es" ]; then
-            echo "Haciendo chown usuarioftpwgm:ftp -R $pathnow/media/digital_magazine para el ftp de wgm"
-            chown usuarioftpwgm:ftp -R $pathnow/media/digital_magazines
+        if [ $site == "xweb.es" ]; then
+            echo "Haciendo chown usuarioftpxweb:ftp -R $pathnow/media/digital_magazine para el ftp de xweb"
+            chown usuarioftpxweb:ftp -R $pathnow/media/digital_magazines
         fi
         # PERMISOS:
         echo "Haciendo find . -type d -exec chmod 755 {} \; # para los directorios: rwxr-xr-x"
