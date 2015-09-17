@@ -1,9 +1,9 @@
 #!/bin/bash
-#######################################################################
+##########################################################################
 # Con crontab -e podemos agregar el script para que se ejecute 
-# todas las noches a las 21:50, agregando al final del todo:
-# 30 21  * * * /usr/local/bin/wp_permisos_restore 
-#######################################################################
+# todas las noches cada dos dias a las 21:30, agregando al final del todo:
+# 30 21  */2 * * /usr/local/bin/wp_permisos_restore
+##########################################################################
 # Copyright (c) 2015 Jorge Hernandez - Melendez
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 # GNU General Public License for more details.
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
-#######################################################################
+##########################################################################
 
 clear
 serveruser="www-data"
