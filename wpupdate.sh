@@ -56,7 +56,7 @@ for site in $(ls $pathwww); do
             echo "target: $pathnow"
             readlog=$(cat $pathlog)
             echo -e "WP-CLI: $pathnow executed! \nReport:\n\n$readlog" | tee /tmp/mmsg
-            cat /tmp/mmsg | mailx -r "$frommail" -s "WP-CLI plugin update for: $pathnow " -c "$adminmail1" $adminmail2
+            cat /tmp/mmsg | mailx -r "$frommail" -s "WP-CLI plugin update for: $pathnow " -c "$adminmail2" $adminmail1
             rm /tmp/mmsg 2>/dev/null
         else # el log solo se guarda si se hizo actualizacion:
             rm $pathlog 2>/dev/null
