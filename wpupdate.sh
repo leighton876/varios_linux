@@ -62,6 +62,7 @@ for site in $(ls $pathwww); do
         if [ $site == "xweb.es" ]; then
             echo "Haciendo chown usuarioftpxweb:ftp -R $pathnow/media/digital_magazine para el ftp de xweb"
             chown usuarioftpxweb:ftp -R $pathnow/media/digital_magazines
+            chown root:root $pathnow/media
         fi
         if [ "$wpcli" != "1" ]; then
             echo "target: $pathnow"
