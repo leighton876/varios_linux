@@ -20,6 +20,7 @@
 
 clear
 normaluser="YourUser"
+usuarioftpxweb="usuario"
 serveruser="www-data"
 wpfile="wp-config.php"
 pathold=$(pwd)
@@ -52,6 +53,16 @@ for site in $(ls $pathwww); do
         wpcli=$(sudo -u "$normaluser" -i wp plugin update --all --path="$pathnow" | sudo tee "$pathlog" | wc -l)
         chown $serveruser:$serveruser -R $pathnow
         chown root:root $pathnow
+        # Excepcion para enjaular el vsftp de xweb:
+        # el home del usuarioftpxweb tiene que ser /var/www/xweb.es/media/digital_magazin
+        # Entonces en el etc password:
+        # usuarioftpxweb:x:algo:algo:Usuario de ftp xweb:/var/www/xweb.es/media/digital_magazine/:/bin/ftp
+        # donde /bin/ftp es una falsa shell que es un directorio de root:root con rwxr-xr-x
+        # tiene que existir el grupo ftp tambien.
+        if [ $site == "xweb.es" ]; then
+            echo "Haciendo chown usuarioftpxweb:ftp -R $pathnow/media/digital_magazine para el ftp de xweb"
+            chown usuarioftpxweb:ftp -R $pathnow/media/digital_magazines
+        fi
         if [ "$wpcli" != "1" ]; then
             echo "target: $pathnow"
             echo -e "WP-CLI: $pathnow executed! \nReport:\n\n" | cat $pathlog | tee /tmp/mmsg
