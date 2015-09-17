@@ -1,0 +1,5 @@
+Para actualizar el software de un servidor recomiendo:
+sudo aptitude update ; sudo aptitude safe-upgrade
+
+Para ahorrar algo de espacio recomiendo:
+sudo aptitude autoclean
