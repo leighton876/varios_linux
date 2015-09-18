@@ -1,6 +1,6 @@
 import re
 
-contenido="opcion = 1400"
+contenido="opcion = valor"
 
 resultado = re.search('(^opcion)\s=\s(.*)', contenido)
 
