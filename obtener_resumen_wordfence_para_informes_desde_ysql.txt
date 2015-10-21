@@ -1,4 +1,6 @@
-Con esto obtenemos lo mismo que muestra wordpfence como resumen:
+Con esto obtenemos lo mismo que muestra wordpfence, el resumen de ips bloqueadas, por si queremos hacer un reporte o informe para un cliente con un script automatizado:
+
+Get Wordfence report or summary of blocked ips from querys mysql :
 
 Top 5 IP's Blocked:
 SELECT *, INET_NTOA(CONV(SUBSTRING(HEX(IP),25,8),16,10)) as myIP, COUNT(IP) as totalIPs, SUM(blockCount) as totalBlockCount FROM wp_wfBlockedIPLog $where GROUP BY IP ORDER BY blockCount DESC LIMIT 5
