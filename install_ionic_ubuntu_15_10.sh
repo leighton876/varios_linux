@@ -130,7 +130,8 @@ fi
 
 sudo ln -s /opt/node/bin/node /usr/bin/node
 sudo ln -s /opt/android-sdk/tools/android /usr/bin/android
- 
+sudo chown -R $(whoami) "$HOME/.npm"
+
 # Install Apache Cordova and Ionic Framework
 npm install -g cordova ionic
 
