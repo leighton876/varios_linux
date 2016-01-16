@@ -128,6 +128,7 @@ if [ "$JAVA_HOME" != "" ]; then
 fi
 
 sudo ln -s /opt/node/bin/node /usr/bin/node
+sudo ln -s /opt/android-sdk/tools/android /usr/bin/android
  
 # Install Apache Cordova and Ionic Framework
 npm install -g cordova ionic
