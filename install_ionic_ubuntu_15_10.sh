@@ -16,7 +16,8 @@
 
 clear
  
-HOME_PATH=$(cd ~/ && pwd)
+#HOME_PATH=$(cd ~/ && pwd)
+HOME_PATH=$HOME
 INSTALL_PATH=/opt
 ANDROID_SDK_PATH=/opt/android-sdk
 NODE_PATH=/opt/node
