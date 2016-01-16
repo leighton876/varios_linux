@@ -135,6 +135,8 @@ sudo chown -R $(whoami) "$HOME/.npm"
 # Install Apache Cordova and Ionic Framework
 npm install -g cordova ionic
 
+sudo ln -s /opt/node/bin/ionic /usr/bin/ionic
+
 cd "$INSTALL_PATH" && sudo chown $USER:$USER -R "node"
 cd "$INSTALL_PATH" && sudo chmod -R 754 "node"
  
