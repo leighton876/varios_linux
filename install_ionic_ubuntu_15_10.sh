@@ -138,8 +138,8 @@ cd "$INSTALL_PATH" && sudo chown $USER:$USER -R "node"
 cd "$INSTALL_PATH" && sudo chmod -R 754 "node"
  
 # Clean up any files that were downloaded from the internet
-#cd $WGET_DEST && rm "android-sdk.tgz"
-#cd $WGET_DEST && rm "nodejs.tgz"
+cd $WGET_DEST && rm "android-sdk.tgz"
+cd $WGET_DEST && rm "nodejs.tgz"
  
 echo "----------------------------------"
 echo "Restart your Ubuntu session for installation to complete..."
