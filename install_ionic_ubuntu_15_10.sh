@@ -128,8 +128,8 @@ if [ "$JAVA_HOME" != "" ]; then
     echo "export JAVA_HOME=$JAVA_HOME" >> ".profile"
 fi
 
-sudo ln -s /opt/node/bin/node /usr/bin/node
-sudo ln -s /opt/android-sdk/tools/android /usr/bin/android
+sudo lnf -s /opt/node/bin/node /usr/bin/node
+sudo lnf -s /opt/android-sdk/tools/android /usr/bin/android
 sudo chown -R $(whoami) "$HOME/.npm"
 
 # Install Apache Cordova and Ionic Framework
