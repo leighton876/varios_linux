@@ -22,6 +22,10 @@ MAINFOLDER=".myionic"
 # in my case i have decided create this in my home (for reasons of space):
 # in older versions from this script the default value from install_path are "/opt"
 INSTALL_PATH="$HOME/$MAINFOLDER"
+
+# remove previous instalations:
+sudo rm -fR $INSTALL_PATH
+
 mkdir -p $INSTALL_PATH
 
 ANDROID_SDK_PATH="$INSTALL_PATH/android-sdk"
@@ -71,9 +75,9 @@ if [ "$LINUX_ARCH" == "x86_64" ]; then
     fi
 
     # if already renamed, dont show errors ( 2>/dev/null )
-    sudo mv "$WGET_DEST/$ANDROID_FOLDER" "$INSTALL_PATH/android-sdk" 2>/dev/null
+    sudo mv "$INSTALL_PATH/$ANDROID_FOLDER" "$INSTALL_PATH/android-sdk" 
     #cd "$INSTALL_PATH" && mv "node-v0.10.32-linux-x64" "node"
-    sudo mv "$WGET_DEST/$NODE_FOLDER" "$INSTALL_PATH/node" 2>/dev/null
+    sudo mv "$INSTALL_PATH/$NODE_FOLDER" "$INSTALL_PATH/node" 
  
     # Android SDK requires some x86 architecture libraries even on x64 system
     sudo apt-get install -qq -y libc6:i386 libgcc1:i386 libstdc++6:i386 libz1:i386
@@ -97,9 +101,9 @@ else
     fi
 
     # if already renamed, dont show errors ( 2>/dev/null )
-    sudo mv "$WGET_DEST/$ANDROID_FOLDER" "$INSTALL_PATH/android-sdk" 2>/dev/null
+    sudo mv "$INSTALL_PATH/$ANDROID_FOLDER" "$INSTALL_PATH/android-sdk" 2>/dev/null
     #cd "$INSTALL_PATH" && mv "node-v0.10.32-linux-x86" "node"
-    sudo mv "$WGET_DEST/$NODE_FOLDER86" "$INSTALL_PATH/node" 2>/dev/null
+    sudo mv "$INSTALL_PATH/$NODE_FOLDER86" "$INSTALL_PATH/node" 2>/dev/null
  
 fi
  
@@ -119,8 +123,8 @@ export PATH=$PATH:$ANDROID_SDK_PATH/tools
 export PATH=$PATH:$ANDROID_SDK_PATH/platform-tools
 export PATH=$PATH:$NODE_PATH/bin
 
-sudo lnf -s $NODE_PATH/bin/node /usr/bin/node
-sudo lnf -s $ANDROID_PATH/tools/android /usr/bin/android
+sudo ln -sf $NODE_PATH/bin/node /usr/bin/node
+sudo ln -sf $ANDROID_PATH/tools/android /usr/bin/android
 sudo chown -R $(whoami) "$HOME/.npm"
  
 # Install JDK and Apache Ant and git
@@ -140,8 +144,9 @@ npm install -g cordova ionic
 #sudo lnf -s /opt/node/bin/npm /usr/bin/npm
  
 # Clean up any files that were downloaded from the internet
-cd $WGET_DEST && rm "android-sdk.tgz"
-cd $WGET_DEST && rm "nodejs.tgz"
+#cd $WGET_DEST 
+#rm "android-sdk.tgz" 
+#rm "nodejs.tgz"
  
 echo "----------------------------------"
 echo "Restart your Ubuntu session for installation to complete..."
