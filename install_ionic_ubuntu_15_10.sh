@@ -119,8 +119,8 @@ export PATH=$PATH:$ANDROID_SDK_PATH/tools
 export PATH=$PATH:$ANDROID_SDK_PATH/platform-tools
 export PATH=$PATH:$NODE_PATH/bin
 
-sudo ln -s $NODE_PATH/bin/node /usr/bin/node
-sudo ln -s $ANDROID_PATH/tools/android /usr/bin/android
+sudo lnf -s $NODE_PATH/bin/node /usr/bin/node
+sudo lnf -s $ANDROID_PATH/tools/android /usr/bin/android
 sudo chown -R $(whoami) "$HOME/.npm"
  
 # Install JDK and Apache Ant and git
