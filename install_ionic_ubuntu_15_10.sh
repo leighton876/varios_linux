@@ -134,7 +134,7 @@ sudo apt-get -qq -y install default-jdk ant git
 # Set JAVA_HOME based on the default OpenJDK installed
 export JAVA_HOME="$(find /usr -type l -name 'default-java')"
 if [ "$JAVA_HOME" != "" ]; then
-    echo "export JAVA_HOME=$JAVA_HOME" >> ".profile"
+    echo "export JAVA_HOME=$JAVA_HOME" >> "$HOME/.profile"
 fi
  
 # Install Apache Cordova and Ionic Framework
