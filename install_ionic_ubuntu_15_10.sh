@@ -124,7 +124,7 @@ export PATH=$PATH:$ANDROID_SDK_PATH/platform-tools
 export PATH=$PATH:$NODE_PATH/bin
 
 sudo ln -sf $NODE_PATH/bin/node /usr/bin/node
-sudo ln -sf $ANDROID_PATH/tools/android /usr/bin/android
+sudo ln -sf $ANDROID_SDK_PATH/tools/android /usr/bin/android
 sudo chown -R $(whoami) "$HOME/.npm"
  
 # Install JDK and Apache Ant and git
@@ -132,7 +132,7 @@ echo "now sudo apt-get -qq -y install default-jdk ant git:"
 sudo apt-get -qq -y install default-jdk ant git
  
 # Set JAVA_HOME based on the default OpenJDK installed
-export JAVA_HOME="$(find /usr -type l -name 'default-java')"
+export JAVA_HOME="$(sudo find /usr -type l -name 'default-java')"
 if [ "$JAVA_HOME" != "" ]; then
     echo "export JAVA_HOME=$JAVA_HOME" >> "$HOME/.profile"
 fi
@@ -140,13 +140,13 @@ fi
 # Install Apache Cordova and Ionic Framework
 npm install -g cordova ionic
 
-#sudo lnf -s /opt/node/bin/ionic /usr/bin/ionic
-#sudo lnf -s /opt/node/bin/npm /usr/bin/npm
+#sudo ln -sf /opt/node/bin/ionic /usr/bin/ionic
+#sudo ln -sf /opt/node/bin/npm /usr/bin/npm
  
 # Clean up any files that were downloaded from the internet
-cd $WGET_DEST 
-rm "android-sdk.tgz" 
-rm "nodejs.tgz"
+#cd $WGET_DEST 
+#rm "android-sdk.tgz" 
+#rm "nodejs.tgz"
  
 echo "----------------------------------"
 echo "Restart your Ubuntu session for installation to complete..."
