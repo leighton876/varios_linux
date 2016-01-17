@@ -24,8 +24,8 @@ MAINFOLDER=".myionic"
 INSTALL_PATH="$HOME/$MAINFOLDER"
 
 # remove previous instalations:
-echo "for remove previous instalations folders need root password:"
-sudo rm -fR $INSTALL_PATH
+#echo "for remove previous instalations folders need root password:"
+#sudo rm -fR $INSTALL_PATH
 
 mkdir -p $INSTALL_PATH
 
