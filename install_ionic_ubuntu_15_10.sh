@@ -24,7 +24,8 @@ MAINFOLDER=".myionic"
 INSTALL_PATH="$HOME/$MAINFOLDER"
 
 # remove previous instalations:
-#sudo rm -fR $INSTALL_PATH
+echo "for remove previous instalations folders need root password:"
+sudo rm -fR $INSTALL_PATH
 
 mkdir -p $INSTALL_PATH
 
@@ -76,10 +77,10 @@ if [ "$LINUX_ARCH" == "x86_64" ]; then
 
     # if already renamed, dont show errors ( 2>/dev/null )
     sudo mv "$INSTALL_PATH/$ANDROID_FOLDER" "$INSTALL_PATH/android-sdk" 
-    #cd "$INSTALL_PATH" && mv "node-v0.10.32-linux-x64" "node"
     sudo mv "$INSTALL_PATH/$NODE_FOLDER" "$INSTALL_PATH/node" 
  
     # Android SDK requires some x86 architecture libraries even on x64 system
+    echo "now sudo apt-get install -qq -y libc6:i386 libgcc1:i386 libstdc++6:i386 libz1:i386"
     sudo apt-get install -qq -y libc6:i386 libgcc1:i386 libstdc++6:i386 libz1:i386
  
 else
@@ -102,7 +103,6 @@ else
 
     # if already renamed, dont show errors ( 2>/dev/null )
     sudo mv "$INSTALL_PATH/$ANDROID_FOLDER" "$INSTALL_PATH/android-sdk" 2>/dev/null
-    #cd "$INSTALL_PATH" && mv "node-v0.10.32-linux-x86" "node"
     sudo mv "$INSTALL_PATH/$NODE_FOLDER86" "$INSTALL_PATH/node" 2>/dev/null
  
 fi
@@ -118,6 +118,11 @@ cd "$INSTALL_PATH" && sudo chmod -R 754 "node"
 echo "export PATH=\"\$PATH:$ANDROID_SDK_PATH/tools\"" >> "$HOME/.profile"
 echo "export PATH=\"\$PATH:$ANDROID_SDK_PATH/platform-tools\"" >> "$HOME/.profile"
 echo "export PATH=\"\$PATH:$NODE_PATH/bin\"" >> "$HOME/.profile"
+# .xsessionrc :
+echo "export PATH=\"\$PATH:$ANDROID_SDK_PATH/tools\"" >> "$HOME/.xsessionrc"
+echo "export PATH=\"\$PATH:$ANDROID_SDK_PATH/platform-tools\"" >> "$HOME/.xsessionrc"
+echo "export PATH=\"\$PATH:$NODE_PATH/bin\"" >> "$HOME/.xsessionrc"
+
  
 # Add Android and NPM paths to the temporary user path to complete installation
 export PATH=$PATH:$ANDROID_SDK_PATH/tools
@@ -136,6 +141,7 @@ sudo apt-get -qq -y install default-jdk ant git
 export JAVA_HOME="$(sudo find /usr -type l -name 'default-java')"
 if [ "$JAVA_HOME" != "" ]; then
     echo "export JAVA_HOME=$JAVA_HOME" >> "$HOME/.profile"
+    echo "export JAVA_HOME=$JAVA_HOME" >> "$HOME/.xsessionrc"
 fi
  
 # Install Apache Cordova and Ionic Framework
@@ -149,5 +155,6 @@ cd $WGET_DEST
 rm "android-sdk.tgz" 
 rm "nodejs.tgz"
  
-echo "----------------------------------"
+echo "------------------------------------------------------------"
 echo "Restart your Ubuntu session for installation to complete..."
+echo "------------------------------------------------------------"
