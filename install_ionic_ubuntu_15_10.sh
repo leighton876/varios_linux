@@ -15,12 +15,17 @@
 #   git
 
 clear
- 
-#HOME_PATH=$(cd ~/ && pwd)
-HOME_PATH=$HOME
-INSTALL_PATH=/opt
-ANDROID_SDK_PATH=/opt/android-sdk
-NODE_PATH=/opt/node
+
+# folder for node and android instalation:
+MAINFOLDER=".myionic"
+
+# in my case i have decided create this in my home (for reasons of space):
+# in older versions from this script the default value from install_path are "/opt"
+INSTALL_PATH="$HOME/$MAINFOLDER"
+mkdir -p $INSTALL_PATH
+
+ANDROID_SDK_PATH="$INSTALL_PATH/android-sdk"
+NODE_PATH="$INSTALL_PATH/node"
  
 # x86_64 or i686
 #LINUX_ARCH="$(lscpu | grep 'Architecture' | awk -F\: '{ print $2 }' | tr -d ' ')"
@@ -36,9 +41,9 @@ ANDROID_SDK_X86="http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz"
 #NODE_X64="http://nodejs.org/dist/v0.10.32/node-v0.10.32-linux-x64.tar.gz"
 NODE_X64="https://nodejs.org/dist/v4.2.4/node-v4.2.4-linux-x64.tar.gz"
 #NODE_X86="http://nodejs.org/dist/v0.10.32/node-v0.10.32-linux-x86.tar.gz"
-NODE_X86="https://nodejs.org/dist/v4.2.4/node-v4.2.4-linux-x86.tar.xz"
+NODE_X86="https://nodejs.org/dist/v4.2.4/node-v4.2.4-linux-x86.tar.gz"
  
-
+# correct names when you decompress the .tat.gz:
 NODE_FOLDER="node-v4.2.4-linux-x64"
 NODE_FOLDER86="node-v4.2.4-linux-x86"
 ANDROID_FOLDER="android-sdk-linux"
@@ -47,8 +52,8 @@ ANDROID_FOLDER="android-sdk-linux"
 echo "now sudo apt-get update:"
 sudo apt-get update
  
-#echo $USER
-#WGET_DEST="$HOME/Desktop"
+# in older versions from this script the default value from wget_dest are "/$HOME/Desktop"
+# I think it is most appropriate tmp folder.
 WGET_DEST="/tmp"
 cd $WGET_DEST
  
@@ -128,10 +133,10 @@ if [ "$JAVA_HOME" != "" ]; then
     echo "export JAVA_HOME=$JAVA_HOME" >> ".profile"
 fi
 
-sudo lnf -s /opt/node/bin/node /usr/bin/node
-sudo lnf -s /opt/android-sdk/tools/android /usr/bin/android
+sudo ln -s $NODE_PATH/bin/node /usr/bin/node
+sudo ln -s $ANDROID_PATH/tools/android /usr/bin/android
 sudo chown -R $(whoami) "$HOME/.npm"
-
+ 
 # Install Apache Cordova and Ionic Framework
 npm install -g cordova ionic
 
