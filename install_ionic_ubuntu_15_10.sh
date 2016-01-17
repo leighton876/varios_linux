@@ -28,19 +28,14 @@ ANDROID_SDK_PATH="$INSTALL_PATH/android-sdk"
 NODE_PATH="$INSTALL_PATH/node"
  
 # x86_64 or i686
-#LINUX_ARCH="$(lscpu | grep 'Architecture' | awk -F\: '{ print $2 }' | tr -d ' ')"
 LINUX_ARCH=$(uname -m)
  
 # Latest Android Linux SDK for x64 and x86 as of 16-01-2016
-#ANDROID_SDK_X64="http://dl.google.com/android/android-sdk_r23.0.2-linux.tgz"
 ANDROID_SDK_X64="http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz"
-#ANDROID_SDK_X86="http://dl.google.com/android/android-sdk_r23.0.2-linux.tgz"
 ANDROID_SDK_X86="http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz"
  
 # Latest NodeJS for x64 and x86 as of 16-01-2016
-#NODE_X64="http://nodejs.org/dist/v0.10.32/node-v0.10.32-linux-x64.tar.gz"
 NODE_X64="https://nodejs.org/dist/v4.2.4/node-v4.2.4-linux-x64.tar.gz"
-#NODE_X86="http://nodejs.org/dist/v0.10.32/node-v0.10.32-linux-x86.tar.gz"
 NODE_X86="https://nodejs.org/dist/v4.2.4/node-v4.2.4-linux-x86.tar.gz"
  
 # correct names when you decompress the .tat.gz:
@@ -67,18 +62,18 @@ if [ "$LINUX_ARCH" == "x86_64" ]; then
         wget "$ANDROID_SDK_X64" -O "$WGET_DEST/android-sdk.tgz"
     fi
     if [ ! -d "$NODE_FOLDER" ]; then
-        echo "Decompressing nodejs in /opt "
+        echo "Decompressing nodejs in $INSTALL_PATH "
         sudo tar zxvf "nodejs.tgz" -C "$INSTALL_PATH" 
     fi
     if [ ! -d "$ANDROID_FOLDER" ]; then
-        echo "Decompressing android-sdk in /opt"
+        echo "Decompressing android-sdk in $INSTALL_PATH"
         sudo tar zxvf "android-sdk.tgz" -C "$INSTALL_PATH" 
     fi
 
     # if already renamed, dont show errors ( 2>/dev/null )
-    cd "$INSTALL_PATH" && sudo mv "$ANDROID_FOLDER" "android-sdk" 2>/dev/null
+    sudo mv "$WGET_DEST/$ANDROID_FOLDER" "$INSTALL_PATH/android-sdk" 2>/dev/null
     #cd "$INSTALL_PATH" && mv "node-v0.10.32-linux-x64" "node"
-    cd "$INSTALL_PATH" && sudo mv "$NODE_FOLDER" "node" 2>/dev/null
+    sudo mv "$WGET_DEST/$NODE_FOLDER" "$INSTALL_PATH/node" 2>/dev/null
  
     # Android SDK requires some x86 architecture libraries even on x64 system
     sudo apt-get install -qq -y libc6:i386 libgcc1:i386 libstdc++6:i386 libz1:i386
@@ -93,37 +88,42 @@ else
         wget "$ANDROID_SDK_X86" -O "$WGET_DEST/android-sdk.tgz"
     fi
     if [ ! -d "$NODE_FOLDER86" ]; then
-        echo "Decompressing nodejs in /opt" 
+        echo "Decompressing nodejs in $INSTALL_PATH" 
         sudo tar zxvf "nodejs.tgz" -C "$INSTALL_PATH"
     fi
     if [ ! -d "$ANDROID_FOLDER" ]; then
-        echo "Decompressing android-sdk in /opt"
+        echo "Decompressing android-sdk in $INSTALL_PATH"
         sudo tar zxvf "android-sdk.tgz" -C "$INSTALL_PATH"
     fi
 
     # if already renamed, dont show errors ( 2>/dev/null )
-    cd "$INSTALL_PATH" && sudo mv "$ANDROID_FOLDER" "android-sdk" 2>/dev/null
+    sudo mv "$WGET_DEST/$ANDROID_FOLDER" "$INSTALL_PATH/android-sdk" 2>/dev/null
     #cd "$INSTALL_PATH" && mv "node-v0.10.32-linux-x86" "node"
-    cd "$INSTALL_PATH" && sudo mv "$NODE_FOLDER86" "node" 2>/dev/null
+    sudo mv "$WGET_DEST/$NODE_FOLDER86" "$INSTALL_PATH/node" 2>/dev/null
  
 fi
  
 cd "$INSTALL_PATH" && sudo chown $USER:$USER -R "android-sdk"
 cd "$INSTALL_PATH" && sudo chmod -R 754 "android-sdk"
- 
-cd $HOME
+cd "$INSTALL_PATH" && sudo chown $USER:$USER -R "node"
+cd "$INSTALL_PATH" && sudo chmod -R 754 "node"
+
  
 # Add Android and NPM paths to the profile to preserve settings on boot
-echo "export PATH=\"\$PATH:$ANDROID_SDK_PATH/tools\"" >> ".profile"
-echo "export PATH=\"\$PATH:$ANDROID_SDK_PATH/platform-tools\"" >> ".profile"
-echo "export PATH=\"\$PATH:$NODE_PATH/bin\"" >> ".profile"
+echo "export PATH=\"\$PATH:$ANDROID_SDK_PATH/tools\"" >> "$HOME/.profile"
+echo "export PATH=\"\$PATH:$ANDROID_SDK_PATH/platform-tools\"" >> "$HOME/.profile"
+echo "export PATH=\"\$PATH:$NODE_PATH/bin\"" >> "$HOME/.profile"
  
 # Add Android and NPM paths to the temporary user path to complete installation
 export PATH=$PATH:$ANDROID_SDK_PATH/tools
 export PATH=$PATH:$ANDROID_SDK_PATH/platform-tools
 export PATH=$PATH:$NODE_PATH/bin
+
+sudo ln -s $NODE_PATH/bin/node /usr/bin/node
+sudo ln -s $ANDROID_PATH/tools/android /usr/bin/android
+sudo chown -R $(whoami) "$HOME/.npm"
  
-# Install JDK and Apache Ant
+# Install JDK and Apache Ant and git
 echo "now sudo apt-get -qq -y install default-jdk ant git:"
 sudo apt-get -qq -y install default-jdk ant git
  
@@ -132,19 +132,12 @@ export JAVA_HOME="$(find /usr -type l -name 'default-java')"
 if [ "$JAVA_HOME" != "" ]; then
     echo "export JAVA_HOME=$JAVA_HOME" >> ".profile"
 fi
-
-sudo ln -s $NODE_PATH/bin/node /usr/bin/node
-sudo ln -s $ANDROID_PATH/tools/android /usr/bin/android
-sudo chown -R $(whoami) "$HOME/.npm"
  
 # Install Apache Cordova and Ionic Framework
 npm install -g cordova ionic
 
 #sudo lnf -s /opt/node/bin/ionic /usr/bin/ionic
 #sudo lnf -s /opt/node/bin/npm /usr/bin/npm
-
-cd "$INSTALL_PATH" && sudo chown $USER:$USER -R "node"
-cd "$INSTALL_PATH" && sudo chmod -R 754 "node"
  
 # Clean up any files that were downloaded from the internet
 cd $WGET_DEST && rm "android-sdk.tgz"
