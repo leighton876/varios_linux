@@ -24,7 +24,7 @@ MAINFOLDER=".myionic"
 INSTALL_PATH="$HOME/$MAINFOLDER"
 
 # remove previous instalations:
-sudo rm -fR $INSTALL_PATH
+#sudo rm -fR $INSTALL_PATH
 
 mkdir -p $INSTALL_PATH
 
@@ -114,6 +114,7 @@ cd "$INSTALL_PATH" && sudo chmod -R 754 "node"
 
  
 # Add Android and NPM paths to the profile to preserve settings on boot
+# if use debian and nvidia optimus with .xsessionrc you need put exports in .xsessionrc for work.
 echo "export PATH=\"\$PATH:$ANDROID_SDK_PATH/tools\"" >> "$HOME/.profile"
 echo "export PATH=\"\$PATH:$ANDROID_SDK_PATH/platform-tools\"" >> "$HOME/.profile"
 echo "export PATH=\"\$PATH:$NODE_PATH/bin\"" >> "$HOME/.profile"
@@ -144,9 +145,9 @@ npm install -g cordova ionic
 #sudo ln -sf /opt/node/bin/npm /usr/bin/npm
  
 # Clean up any files that were downloaded from the internet
-#cd $WGET_DEST 
-#rm "android-sdk.tgz" 
-#rm "nodejs.tgz"
+cd $WGET_DEST 
+rm "android-sdk.tgz" 
+rm "nodejs.tgz"
  
 echo "----------------------------------"
 echo "Restart your Ubuntu session for installation to complete..."
