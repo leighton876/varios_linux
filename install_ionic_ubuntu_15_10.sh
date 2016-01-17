@@ -144,9 +144,9 @@ npm install -g cordova ionic
 #sudo lnf -s /opt/node/bin/npm /usr/bin/npm
  
 # Clean up any files that were downloaded from the internet
-#cd $WGET_DEST 
-#rm "android-sdk.tgz" 
-#rm "nodejs.tgz"
+cd $WGET_DEST 
+rm "android-sdk.tgz" 
+rm "nodejs.tgz"
  
 echo "----------------------------------"
 echo "Restart your Ubuntu session for installation to complete..."
