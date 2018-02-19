@@ -64,7 +64,7 @@ Add additional notes about how to deploy this on a live system
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+
 
 ## Versioning
 
@@ -72,7 +72,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **zebus3d** - *Initial work* - [PurpleBooth](https://github.com/zebus3d)
+* **zebus3d** - *Initial work* - [zebus3d](https://github.com/zebus3d)
 
 See also the list of [contributors](https://github.com/your/project/) who participated in this project.
 
