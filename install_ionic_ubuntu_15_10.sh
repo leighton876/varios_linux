@@ -3,6 +3,7 @@
 # Created by Nic Raboy
 # http://www.nraboy.com
 # And modified/updated by zebus (16/01/2016) www.my-geek-site.dx.am
+# And modified/updated by leighton876 aka unknownkisuke876 (19/02/2018) www.ahmslab.dx.am
 #
 # Downloads and configures the following:
 #
@@ -39,13 +40,13 @@ LINUX_ARCH=$(uname -m)
 ANDROID_SDK_X64="http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz"
 ANDROID_SDK_X86="http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz"
  
-# Latest NodeJS for x64 and x86 as of 16-01-2016
-NODE_X64="https://nodejs.org/dist/v4.2.4/node-v4.2.4-linux-x64.tar.gz"
-NODE_X86="https://nodejs.org/dist/v4.2.4/node-v4.2.4-linux-x86.tar.gz"
+# Latest NodeJS for x64 and x86 as of 19-02-2018
+NODE_X64="https://nodejs.org/dist/v9.5.0/node-v9.5.0-linux-x64.tar.gz"
+NODE_X86="https://nodejs.org/dist/v9.5.0/node-v9.5.0-linux-x86.tar.gz"
  
 # correct names when you decompress the .tat.gz:
-NODE_FOLDER="node-v4.2.4-linux-x64"
-NODE_FOLDER86="node-v4.2.4-linux-x86"
+NODE_FOLDER="node-v9.5.0-linux-x64"
+NODE_FOLDER86="node-v9.5.0-linux-x86"
 ANDROID_FOLDER="android-sdk-linux"
 
 # Update all Ubuntu software repository lists
